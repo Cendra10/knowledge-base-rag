@@ -2,7 +2,6 @@ import io
 from pypdf import PdfReader
 from docx import Document
 
-
 def extract_text_from_pdf(pdf_bytes):
     page_list = []
     reader = PdfReader(io.BytesIO(pdf_bytes))
@@ -12,7 +11,6 @@ def extract_text_from_pdf(pdf_bytes):
         page_list.append(text)
 
     return "\n".join(page_list)
-
 
 def extract_text_from_docx(docx_bytes):
     doc = Document(io.BytesIO(docx_bytes))
@@ -27,7 +25,6 @@ def chunk_text(text, chunk_size=500, overlap=100):
         chunks.append(text[start:end])
         start += chunk_size - overlap
     return chunks
-
 
 with open("test_files/testing-2.pdf", "rb") as f:
     file_bytes = f.read()

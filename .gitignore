@@ -13,3 +13,5 @@ __pycache__/
 chroma_db/
 
 test_files
+
+.env
