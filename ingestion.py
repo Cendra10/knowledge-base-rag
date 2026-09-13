@@ -1,6 +1,8 @@
 import io
 from pypdf import PdfReader
 from docx import Document
+from pathlib import Path
+from embeddings import save_to_chroma, get_chroma_collection
 
 def extract_text_from_pdf(pdf_bytes):
     page_list = []
@@ -26,11 +28,22 @@ def chunk_text(text, chunk_size=500, overlap=100):
         start += chunk_size - overlap
     return chunks
 
-with open("test_files/testing-2.pdf", "rb") as f:
-    file_bytes = f.read()
+def ingest_folder(folder_path, collection):
+    for path in Path(folder_path).iterdir():
+        file_bytes = path.read_bytes()
 
-text = extract_text_from_pdf(file_bytes)
-chunks = chunk_text(text)
+        if path.suffix == ".pdf":
+            text = extract_text_from_pdf(file_bytes)
+        elif path.suffix == ".docx":
+            text = extract_text_from_docx(file_bytes)
+        else:
+            continue
 
-print(len(chunks))
-print(chunks[0])
+        chunks = chunk_text(text)
+        save_to_chroma(collection, chunks, path.name)
+
+
+if __name__ == "__main__":
+    collection = get_chroma_collection()
+    ingest_folder("data", collection)
+    print(collection.count())

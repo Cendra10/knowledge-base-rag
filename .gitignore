@@ -15,3 +15,5 @@ chroma_db/
 test_files
 
 .env
+
+data/
