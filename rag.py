@@ -36,6 +36,7 @@ def ask_rag(collection, question):
 
     return response.choices[0].message.content
 
-collection = get_chroma_collection()
-answer = ask_rag(collection, "apa itu project ini")
-print(answer)
+if __name__ == "__main__":
+    collection = get_chroma_collection()
+    answer = ask_rag(collection, "apa itu project ini")
+    print(answer)
