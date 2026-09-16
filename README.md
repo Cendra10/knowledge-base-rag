@@ -15,6 +15,7 @@ A Retrieval-Augmented Generation (RAG) application that answers questions based 
 - Python
 - FastAPI
 - ChromaDB (vector database)
+- Uvicorn
 - sentence-transformers (local embedding model)
 - pypdf (PDF text extraction)
 - python-docx (DOCX text extraction)
@@ -43,19 +44,55 @@ GROQ_API_KEY=your_api_key_here
 
 ## Usage
 1. Place your PDF or DOCX documents inside the `data/` folder.
-2. Run ingestion to process and store documents in the vector database:
+2. Start the FastAPI using Uvicorn:
 ```
-python ingestion.py
+uvicorn main:app --reload   
 ```
-3. Ask questions based on the ingested documents:
+The API will be available at:
+
 ```
-python rag.py
+http://127.0.0.1:8000
 ```
+
+Swagger UI is available at:
+
+```
+http://127.0.0.1:8000/docs
+```
+
+```
+for example:
+
+{
+  "question": "Apa isi file ini ?"
+}
+```
+
+```
+{
+  "answer": "File tersebut berisi contoh test untuk proyek “Document AI Assistant” dalam format Word dan PDF."
+}
+```
+
+And response form endpoint \ingest:
+```
+{
+  "message": "Ingestion complete",
+  "total_chunks": 2
+}
+```
+
+## API Endpoints
+
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|--------------|----------------|
+| POST | `/ingest` | - Collect ingestion from database | No |
+| POST | `/ask` | - Send question and Get Answering through FastAPI endpoints | No |
 
 ## Project Structure
 ```
 knowledge-base-rag/
-    main.py                 # FastAPI endpoints (in progress)
+    main.py                 # FastAPI endpoints
     schemas.py              # Pydantic models
     ingestion.py            # Document loading, text extraction, chunking, folder ingestion
     embeddings.py           # ChromaDB connection and storage of embeddings
@@ -78,7 +115,6 @@ menganalisis, dan membantu dalam mengelola file PDF.
 ```
 
 ## Future Improvement
-- Expose ingestion and question-answering through FastAPI endpoints
 - Support more file types (e.g. TXT, JSON)
 - Add citation of source file/chunk in the answer
 - Add automated tests
@@ -86,3 +122,5 @@ menganalisis, dan membantu dalam mengelola file PDF.
 
 ## License
 MIT License
+
+```
