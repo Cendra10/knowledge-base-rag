@@ -60,9 +60,8 @@ Swagger UI is available at:
 http://127.0.0.1:8000/docs
 ```
 
-```
 for example:
-
+```
 {
   "question": "Apa isi file ini ?"
 }
@@ -74,7 +73,7 @@ for example:
 }
 ```
 
-And response form endpoint \ingest:
+And response from endpoint /ingest:
 ```
 {
   "message": "Ingestion complete",
