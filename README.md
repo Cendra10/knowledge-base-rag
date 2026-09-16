@@ -69,7 +69,7 @@ for example:
 
 ```
 {
-  "answer": "File tersebut berisi contoh test untuk proyek “Document AI Assistant” dalam format Word dan PDF."
+  "answer": "File ini berisi teks: “Ini adalah file test untuk project knowledge-base-rag” yang muncul dua kali."
 }
 ```
 
